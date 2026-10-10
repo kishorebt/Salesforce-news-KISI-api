@@ -7,10 +7,10 @@ on:
     - cron: '0 */4 * * *'
 
 jobs:
-  buffer-connection-test:
+  list-buffer-channels:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify Buffer API connection
+      - name: List connected Buffer channels
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: |
@@ -21,13 +21,21 @@ jobs:
             --url https://api.buffer.com \
             --header "Authorization: Bearer ${BUFFER_API_KEY}" \
             --header "Content-Type: application/json" \
-            --data '{"query":"query { account { organizations { id name } } }"}')
+            --data '{"query":"query { channels(input: { organizationId: \"5b48f24de341a149319d3ecf\" }) { id name displayName service externalLink isDisconnected isLocked } }"}')
 
           echo "$RESPONSE" | jq -e '
             if .errors then
               error("Buffer API returned an error")
-            elif .data.account.organizations then
-              .data.account.organizations
+            elif .data.channels then
+              [.data.channels[] | {
+                id,
+                name,
+                displayName,
+                service,
+                externalLink,
+                isDisconnected,
+                isLocked
+              }]
             else
               error("Unexpected Buffer API response")
             end
