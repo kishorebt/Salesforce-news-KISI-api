@@ -1,13 +1,20 @@
 name: Salesforce News Automation
+# Schedule + manual runs publish. Pushes only render a preview (never post).
 on:
+  schedule:
+    - cron: '17 */4 * * *'   # every 4h, off the :00 rush so runs aren't delayed
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Preview only (render + caption, no commit, no post)'
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
-      - ".github/workflows/salesforce-news.yml"
-      - "scripts/**"
-  schedule:
-    - cron: '0 */4 * * *'
+      - '.github/workflows/salesforce-news.yml'
+      - 'scripts/**'
+      - 'assets/**'
 permissions:
   contents: write
 concurrency:
@@ -16,48 +23,79 @@ concurrency:
 jobs:
   publish-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PUBLISH: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run) }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Set up Python
-        uses: actions/setup-python@v5
+
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install image library
-        run: python -m pip install --disable-pip-version-check Pillow
-      - name: Find relevant Salesforce news and create KISI graphic
-        run: python scripts/publish_news.py
-      - name: Commit generated graphic for public image hosting
+
+      - name: Install dependencies
         run: |
-          set -euo pipefail
-          if [ -f candidate.json ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add posts/
-            if ! git diff --cached --quiet; then
-              git commit -m "Generate KISI Salesforce news graphic"
-              git push
-            fi
-          else
-            echo "No new story; nothing to publish."
-          fi
-      - name: Publish to KISI LinkedIn via Buffer
-        if: ${{ hashFiles('candidate.json') != '' }}
+          python -m pip install --disable-pip-version-check -q 'Pillow>=11,<13'
+          sudo apt-get install -y -qq fonts-dejavu-core >/dev/null || true
+
+      - name: Discover, verify and render
         env:
-          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          KISI_DRY_RUN: ${{ env.PUBLISH == 'true' && '0' || '1' }}
         run: |
-          set -euo pipefail
-          python scripts/submit_candidate.py
-      - name: Save duplicate-prevention state
+          echo "Mode: $([ "$PUBLISH" = true ] && echo PUBLISH || echo PREVIEW_ONLY) (event: ${{ github.event_name }})"
+          python scripts/publish_news.py
+
+      - name: Upload preview
         if: ${{ hashFiles('candidate.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: kisi-post-preview
+          path: |
+            candidate.json
+            posts/*.png
+          retention-days: 14
+
+      - name: Host image (commit to posts/)
+        id: host
+        if: ${{ env.PUBLISH == 'true' && hashFiles('candidate.json') != '' }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          IMG=$(python -c "import json;print(json.load(open('candidate.json'))['image_path'])")
+          git add "$IMG"
+          git commit -q -m "Add KISI news graphic $(basename "$IMG")"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && break
+            echo "push retry $i"; sleep $((i*5))
+            [ $i = 5 ] && { echo "FAILED could not push image"; exit 1; }
+          done
+          URL="https://raw.githubusercontent.com/${{ github.repository }}/$(git rev-parse HEAD)/$IMG"
+          for i in $(seq 1 12); do
+            CODE=$(curl -s -o /dev/null -w '%{http_code}' "$URL"); [ "$CODE" = 200 ] && break; sleep 5
+          done
+          [ "$CODE" = 200 ] || { echo "FAILED image not publicly reachable ($CODE): $URL"; exit 1; }
+          echo "IMAGE_HOSTED $URL"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to KISI LinkedIn via Buffer
+        if: ${{ steps.host.outcome == 'success' }}
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          IMAGE_URL: ${{ steps.host.outputs.url }}
+        run: python scripts/submit_candidate.py
+
+      - name: Save duplicate-prevention state
+        if: ${{ always() && steps.host.outcome == 'success' }}
+        run: |
+          set -euo pipefail
           git add data/published.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Record published Salesforce news item"
-            git push
-          fi
+          git diff --cached --quiet && { echo "No state change"; exit 0; }
+          git commit -q -m "Record KISI publication state"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0
+            echo "push retry $i"; sleep $((i*5))
+          done
+          echo "FAILED could not save state"; exit 1
