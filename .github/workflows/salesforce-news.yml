@@ -1,6 +1,11 @@
 name: Salesforce News Automation
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/salesforce-news.yml"
+      - "scripts/**"
   schedule:
     - cron: '0 */4 * * *'
 permissions:
@@ -9,7 +14,7 @@ concurrency:
   group: kisi-salesforce-news
   cancel-in-progress: false
 jobs:
-  generate-news:
+  publish-news:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -22,9 +27,9 @@ jobs:
           python-version: '3.12'
       - name: Install image library
         run: python -m pip install --disable-pip-version-check Pillow
-      - name: Generate a relevant Salesforce news candidate
+      - name: Find relevant Salesforce news and create KISI graphic
         run: python scripts/publish_news.py
-      - name: Commit generated image
+      - name: Commit generated graphic for public image hosting
         run: |
           set -euo pipefail
           if [ -f candidate.json ]; then
@@ -36,5 +41,23 @@ jobs:
               git push
             fi
           else
-            echo "No new story; no image commit needed."
+            echo "No new story; nothing to publish."
+          fi
+      - name: Publish to KISI LinkedIn via Buffer
+        if: ${{ hashFiles('candidate.json') != '' }}
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          set -euo pipefail
+          python scripts/submit_candidate.py
+      - name: Save duplicate-prevention state
+        if: ${{ hashFiles('candidate.json') != '' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record published Salesforce news item"
+            git push
           fi
