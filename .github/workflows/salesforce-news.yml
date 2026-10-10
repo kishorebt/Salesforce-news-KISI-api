@@ -4,19 +4,31 @@ name: Salesforce News Automation
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */4 * * *"
-
-permissions:
-  contents: read
+    - cron: '0 */4 * * *'
 
 jobs:
-  news-workflow:
+  buffer-connection-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Confirm scheduled runner
+      - name: Verify Buffer API connection
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: |
-          echo "Salesforce news workflow runner is active."
-          echo "Schedule: every four hours."
-          echo "Timezone: UTC for the GitHub schedule."
-          echo "Publishing is not enabled until source verification,"
-          echo "image generation, and LinkedIn API authorization are configured."
+          set -euo pipefail
+
+          RESPONSE=$(curl --silent --show-error --fail \
+            --request POST \
+            --url https://api.buffer.com \
+            --header "Authorization: Bearer ${BUFFER_API_KEY}" \
+            --header "Content-Type: application/json" \
+            --data '{"query":"query { account { organizations { id name } } }"}')
+
+          echo "$RESPONSE" | jq -e '
+            if .errors then
+              error("Buffer API returned an error")
+            elif .data.account.organizations then
+              .data.account.organizations
+            else
+              error("Unexpected Buffer API response")
+            end
+          '
