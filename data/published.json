@@ -1,10 +1,11 @@
 {
   "published_urls": [
-    "https://www.salesforce.com/blog/accessible-ai-experiences/"
+    "https://www.salesforce.com/blog/accessible-ai-experiences/",
+    "https://www.salesforce.com/blog/small-business/ai-use-cases-for-revenue-management/"
   ],
   "last_success": {
-    "source_url": "https://www.salesforce.com/blog/accessible-ai-experiences/",
-    "buffer_post_id": "6aca8fc7c4de2d2b123a5179",
-    "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/de7f42c91bbea686484c5bea235183cf8d6b826c/posts/0ffe4f25b1cf.jpg"
+    "source_url": "https://www.salesforce.com/blog/small-business/ai-use-cases-for-revenue-management/",
+    "buffer_post_id": "6aca8ff5d9cab260a7d5a476",
+    "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/1442a866ac630f1fa47f401a841a9cadd43bcc38/posts/3dd290b1177c.jpg"
   }
 }
