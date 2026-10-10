@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish candidate.json to the KISI LinkedIn page via Buffer, then confirm delivery.
+"""Publish candidate.json (news or manual queue item) to the KISI LinkedIn page via Buffer, then confirm delivery.
 
 Requires env BUFFER_API_KEY and IMAGE_URL (public raw URL of the committed image).
 State is written only after Buffer confirms the post was created.
@@ -103,8 +103,8 @@ def main():
 
     # Follow-up: shareNow normally sends within seconds; poll for ~3 minutes.
     final = {}
-    for _ in range(12):
-        time.sleep(float(os.environ.get("KISI_POLL_SECONDS", "15")))
+    for _ in range(4):  # 4 polls keeps Buffer free-plan API usage low
+        time.sleep(float(os.environ.get("KISI_POLL_SECONDS", "45")))
         final = post_status(key, post["id"])
         st = str(final.get("status", "")).lower()
         if st in DELIVERED | FAILED or "check_error" in final:
@@ -116,6 +116,11 @@ def main():
             entry[k] = final[k]
     save_state(state)
 
+    if c.get("queue_item") and st not in FAILED:
+        import shutil
+        from kisi_common import ROOT
+        shutil.rmtree(ROOT / "queue" / c["queue_item"], ignore_errors=True)
+        log("QUEUE_DONE", c["queue_item"])
     if st in DELIVERED:
         log("DELIVERED", f"buffer_id={post['id']} linkedin={final.get('externalLink') or 'n/a'}")
         return 0
@@ -125,7 +130,7 @@ def main():
     if "check_error" in final:
         log("DELIVERY_UNCONFIRMED", f"buffer_id={post['id']} status check unavailable: {final['check_error']}")
     else:
-        log("DELIVERY_PENDING", f"buffer_id={post['id']} status={st or 'unknown'} after 3 min")
+        log("DELIVERY_PENDING", f"buffer_id={post['id']} status={st or 'unknown'} after ~3 min")
     return 0
 
 

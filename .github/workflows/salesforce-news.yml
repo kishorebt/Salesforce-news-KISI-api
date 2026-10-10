@@ -15,6 +15,7 @@ on:
       - '.github/workflows/salesforce-news.yml'
       - 'scripts/**'
       - 'assets/**'
+      - 'queue/**'
 permissions:
   contents: write
 concurrency:
@@ -40,12 +41,13 @@ jobs:
           python -m pip install --disable-pip-version-check -q 'Pillow>=11,<13'
           sudo apt-get install -y -qq fonts-dejavu-core >/dev/null || true
 
-      - name: Discover, verify and render
+      - name: Manual queue first, then discover news
         env:
           KISI_DRY_RUN: ${{ env.PUBLISH == 'true' && '0' || '1' }}
         run: |
           echo "Mode: $([ "$PUBLISH" = true ] && echo PUBLISH || echo PREVIEW_ONLY) (event: ${{ github.event_name }})"
-          python scripts/publish_news.py
+          python scripts/process_queue.py
+          [ -f candidate.json ] || python scripts/publish_news.py
 
       - name: Upload preview
         if: ${{ hashFiles('candidate.json') != '' }}
@@ -91,7 +93,7 @@ jobs:
         if: ${{ always() && steps.host.outcome == 'success' }}
         run: |
           set -euo pipefail
-          git add data/published.json
+          git add -A data/published.json queue/ 2>/dev/null || git add data/published.json
           git diff --cached --quiet && { echo "No state change"; exit 0; }
           git commit -q -m "Record KISI publication state"
           for i in 1 2 3 4 5; do

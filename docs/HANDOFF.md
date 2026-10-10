@@ -29,10 +29,12 @@ Your job is to keep it working, not to rebuild it.
 .github/workflows/salesforce-news.yml   the only workflow
 scripts/kisi_common.py                  HTTP with retries, URL canonicalisation, state I/O
 scripts/publish_news.py                 discover → verify → select → caption → render image
+scripts/process_queue.py                manual queue → candidate (exact logo stamped)
 scripts/submit_candidate.py             Buffer channel check → createPost → delivery check → record state
 assets/kisi-logo.png                    EXACT original KISI logo (1659×948 PNG)
 assets/README.md
 data/published.json                     duplicate-prevention state (committed by the workflow)
+queue/                                  manual posts waiting to publish
 posts/                                  published images, served via raw.githubusercontent.com
 docs/HANDOFF.md                         this file
 ```
@@ -90,12 +92,20 @@ Pushes to `docs/**`, `data/**` or `posts/**` do not trigger the workflow at all.
 - **Post now:** run the workflow manually. Use Actions → Salesforce News Automation → Run workflow → `dry_run` unchecked. Or use the REST API:
   `POST /repos/kishorebt/Salesforce-news-KISI-api/actions/workflows/salesforce-news.yml/dispatches` with body `{"ref":"main","inputs":{"dry_run":"false"}}`.
   If no story is fresh, it correctly posts nothing (`NO_NEW_STORY`). This is expected behaviour, not a bug.
-- **One-off custom post** (e.g. an image you generated): there is no mechanism for this yet. If you build one:
-  - Make it a **separate workflow triggered only by `workflow_dispatch`**, never by `push`.
-  - Reuse `verify_channel()` and `create_post()` from `scripts/submit_candidate.py`.
-  - Commit the image to `posts/` first and use the commit-SHA raw URL.
-  - Composite the exact `assets/kisi-logo.png` onto the image. Don't trust a logo drawn by an image model.
-  - Record the result in `data/published.json` in the same entry format.
+- **Custom post (your own image + caption): use the manual queue.**
+  1. Add a folder `queue/<YYYY-MM-DD-short-name>/` containing:
+     - `image.png` (or .jpg): 1200×1350 or 1200×1200, ≤8 MB, **with no KISI logo in it**. The pipeline stamps the exact logo on.
+     - `post.json`: `{"caption": "...", "image": "image.png", "source_url": "https://... (optional)", "logo_position": "top-right"}`.
+       `logo_position` is one of top-left, top-right, bottom-left, bottom-right. Pick a corner the artwork leaves empty.
+  2. Commit it to `main`. The push runs a **preview only** and never posts.
+  3. It posts on the next scheduled run (≤4 h), or immediately via a manual run with `dry_run=false`.
+     Queue items take priority over news, at one post per run.
+  4. After Buffer confirms, the folder is deleted and the post is recorded as `manual:<folder>`.
+     If `source_url` is set, the news pipeline won't post that story again.
+  - Invalid items log `QUEUE_INVALID <reason>` and stay in the queue untouched.
+  - The 48 h freshness rule does not apply to manual posts. They are deliberate choices.
+  - Write access: if your GitHub integration returns `403 Resource not accessible by integration`, it lacks Contents write on this repo.
+    The owner must grant it in GitHub's app settings. Don't work around it.
 
 ---
 
@@ -115,8 +125,7 @@ Pushes to `docs/**`, `data/**` or `posts/**` do not trigger the workflow at all.
 ## 6. Buffer free plan limits that matter
 
 - API: 100 requests / 15 min, 250 / 24 h, 3,000 / 30 days.
-- Each post uses ≤14 requests (1 channel check, 1 create, ≤12 status polls). Worst case of 6 posts a day ≈ 2,500 a month, which is close to the cap.
-  **Pending improvement:** reduce polling in `submit_candidate.py` to 4 polls spaced ~45 s apart.
+- Each post uses ≤6 requests (1 channel check, 1 create, ≤4 status polls 45 s apart). Worst case of 6 posts a day ≈ 1,100 a month.
 - 10 queued posts per channel does not matter, because we use `shareNow`.
 - If LinkedIn disconnects the channel, runs fail with `CHANNEL_VERIFY_FAILED`. The owner must reconnect it in the Buffer app.
 

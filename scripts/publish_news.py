@@ -181,7 +181,8 @@ def verify(item, now):
 
 def select(items, state, now):
     blocked = blocking_entries(state)
-    seen_urls = {e["canonical_url"] for e in blocked}
+    seen_urls = {e["canonical_url"] for e in blocked} | {
+        canonical_url(e["source_url"]) for e in blocked if e.get("source_url", "").startswith("http")}
     seen_titles = {e.get("title_key") for e in blocked if e.get("title_key")}
     pool, dedupe = [], set()
     for it in items:
