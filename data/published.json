@@ -1,12 +1,41 @@
 {
-  "published_urls": [
-    "https://www.salesforce.com/blog/accessible-ai-experiences/",
-    "https://www.salesforce.com/blog/small-business/ai-use-cases-for-revenue-management/",
-    "https://www.salesforce.com/blog/bot-mitigation-strategy/"
-  ],
   "last_success": {
     "source_url": "https://www.salesforce.com/blog/bot-mitigation-strategy/",
     "buffer_post_id": "6aca96d0ed92ed8fa5de1103",
     "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/c8dd27e8ea16a25ae0bc58e330bdbfb86d945318/posts/b1ef642c915f.jpg"
-  }
+  },
+  "published": [
+    {
+      "canonical_url": "https://salesforce.com/blog/accessible-ai-experiences",
+      "title_key": null,
+      "status": "legacy",
+      "source_url": "https://www.salesforce.com/blog/accessible-ai-experiences/"
+    },
+    {
+      "canonical_url": "https://salesforce.com/blog/small-business/ai-use-cases-for-revenue-management",
+      "title_key": null,
+      "status": "legacy",
+      "source_url": "https://www.salesforce.com/blog/small-business/ai-use-cases-for-revenue-management/"
+    },
+    {
+      "canonical_url": "https://salesforce.com/blog/bot-mitigation-strategy",
+      "title_key": null,
+      "status": "legacy",
+      "source_url": "https://www.salesforce.com/blog/bot-mitigation-strategy/"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/personal-ai-agents-evolution",
+      "title_key": "63fa79e3621f2d9b",
+      "source_url": "https://www.salesforce.com/news/stories/personal-ai-agents-evolution/",
+      "title": "Your Customer’s Personal Agent Is Knocking. Is Your Business Ready to Answer?",
+      "article_published": "2026-10-09T18:30:00+00:00",
+      "buffer_post_id": "6acaaaf9c4de2d2b123e3991",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/c922d48ff9679a66cc0f5b07bdcd551a4895ebd9/posts/20261009-63fa79e3621f2d9b.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-10T21:15:48+00:00",
+      "sentAt": "2026-10-10T21:15:59.919Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7514795893821435904"
+    }
+  ]
 }
