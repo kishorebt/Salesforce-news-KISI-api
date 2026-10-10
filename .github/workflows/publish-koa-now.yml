@@ -34,32 +34,15 @@ jobs:
           git commit -m "Render KISI Koa post image"
           git push
           IMAGE_COMMIT=$(git rev-parse HEAD)
-          IMAGE_URL="https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/${IMAGE_COMMIT}/posts/kisi-koa-announcement.png"
+          export IMAGE_URL="https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/${IMAGE_COMMIT}/posts/kisi-koa-announcement.png"
           python - <<'PY'
           import json, os, urllib.request
           key = os.environ["BUFFER_API_KEY"]
           org = "5b48f24de341a149319d3ecf"
           channel = "6aca818a6a5c39ccb674bdb3"
           page = "https://www.linkedin.com/company/143983556"
-          image_url = os.environ.get("IMAGE_URL")
-          if not image_url:
-              image_url = "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/" + os.popen("git rev-parse HEAD").read().strip() + "/posts/kisi-koa-announcement.png"
-          caption = """🧠 Meet Koa: Salesforce’s first CRM reasoning model, built on NVIDIA Nemotron.
-
-The next AI advantage isn’t just generating an answer. It’s reasoning with CRM context.
-
-For architects and developers, the opportunity is to evaluate how reasoning models can interpret business context, support more complex decisions, and fit into a trusted enterprise architecture.
-
-The questions worth asking:
-• What business context is the model grounded in?
-• How do you evaluate accuracy and reliability?
-• Where should deterministic rules and human approval remain in control?
-
-AI capability matters—but context, governance, and measurable outcomes matter just as much.
-
-Source: https://investor.salesforce.com/news/news-details/2026/Announcing-Koa-Salesforces-First-CRM-Reasoning-Model-Built-on-NVIDIA-Nemotron/default.aspx
-
-#Salesforce #Koa #AI #SalesforceArchitects #SalesforceDevelopers"""
+          image_url = os.environ["IMAGE_URL"]
+          caption = "🧠 Meet Koa: Salesforce’s first CRM reasoning model, built on NVIDIA Nemotron.\n\nThe next AI advantage isn’t just generating an answer. It’s reasoning with CRM context.\n\nFor architects and developers, evaluate how reasoning models interpret business context, support complex decisions, and fit into trusted enterprise architecture.\n\nQuestions worth asking:\n• What business context is the model grounded in?\n• How do you evaluate accuracy and reliability?\n• Where should deterministic rules and human approval remain in control?\n\nAI capability matters—but context, governance, and measurable outcomes matter just as much.\n\nSource: https://investor.salesforce.com/news/news-details/2026/Announcing-Koa-Salesforces-First-CRM-Reasoning-Model-Built-on-NVIDIA-Nemotron/default.aspx\n\n#Salesforce #Koa #AI #SalesforceArchitects #SalesforceDevelopers"
           def call(query):
               req = urllib.request.Request("https://api.buffer.com", data=json.dumps({"query":query}).encode(), headers={"Authorization":"Bearer "+key,"Content-Type":"application/json"}, method="POST")
               with urllib.request.urlopen(req, timeout=40) as resp:
