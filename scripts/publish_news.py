@@ -289,7 +289,7 @@ def wrap(d, text, f, width):
 def place_logo(im, dry_run):
     """Paste the exact supplied logo bytes, scaled proportionally. Never drawn."""
     from PIL import Image, ImageDraw
-    box_w, box_h, x, y = 440, 130, 80, 70
+    box_w, box_h, x, y = 350, 200, 80, 60
     if not LOGO.exists():
         if not dry_run:
             raise SystemExit("LOGO_MISSING: assets/kisi-logo.png not found; refusing to publish without the exact KISI logo.")
@@ -300,7 +300,7 @@ def place_logo(im, dry_run):
     logo = Image.open(LOGO).convert("RGBA")
     scale = min(box_w / logo.width, box_h / logo.height)
     logo = logo.resize((max(1, round(logo.width * scale)), max(1, round(logo.height * scale))), Image.LANCZOS)
-    im.paste(logo, (x, y + (box_h - logo.height) // 2), logo)
+    im.paste(logo, (x, y + (box_h - logo.height) // 2), logo)  # exact asset, alpha-safe
 
 
 def render(item, path, dry_run):
@@ -315,17 +315,17 @@ def render(item, path, dry_run):
     chip = f"{item['source'].upper()}  ·  {item['published'].strftime('%-d %b %Y').upper()}"
     fc = font(True, 24)
     cw = d.textlength(chip, font=fc)
-    d.rounded_rectangle((80, 270, 80 + cw + 48, 322), radius=26, fill=(58, 47, 12))
-    d.text((104, 282), chip, font=fc, fill=MUSTARD)
+    d.rounded_rectangle((80, 300, 80 + cw + 48, 352), radius=26, fill=(58, 47, 12))
+    d.text((104, 312), chip, font=fc, fill=MUSTARD)
 
     size = 78
     while True:
         ft = font(True, size)
         lines = wrap(d, item["title"], ft, W - 160)
-        if len(lines) <= 5 or size <= 46:
+        if len(lines) <= 4 or size <= 46:
             break
         size -= 4
-    y = 370
+    y = 400
     for ln in lines[:6]:
         d.text((80, y), ln, font=ft, fill=WHITE)
         y += int(size * 1.2)
