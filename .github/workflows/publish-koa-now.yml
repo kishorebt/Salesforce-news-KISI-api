@@ -1,0 +1,96 @@
+name: Publish KISI Koa Post Now
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-koa-now.yml"
+permissions:
+  contents: write
+jobs:
+  publish-once:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Render branded graphic as PNG
+        run: |
+          python -m pip install --disable-pip-version-check cairosvg
+          python - <<'PY'
+          import cairosvg
+          cairosvg.svg2png(url="posts/kisi-koa-announcement.svg", write_to="posts/kisi-koa-announcement.png", output_width=1200, output_height=1200)
+          PY
+      - name: Publish immediately to KISI LinkedIn through Buffer
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts/kisi-koa-announcement.png
+          git commit -m "Render KISI Koa post image"
+          git push
+          IMAGE_COMMIT=$(git rev-parse HEAD)
+          IMAGE_URL="https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/${IMAGE_COMMIT}/posts/kisi-koa-announcement.png"
+          python - <<'PY'
+          import json, os, urllib.request
+          key = os.environ["BUFFER_API_KEY"]
+          org = "5b48f24de341a149319d3ecf"
+          channel = "6aca818a6a5c39ccb674bdb3"
+          page = "https://www.linkedin.com/company/143983556"
+          image_url = os.environ.get("IMAGE_URL")
+          if not image_url:
+              image_url = "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/" + os.popen("git rev-parse HEAD").read().strip() + "/posts/kisi-koa-announcement.png"
+          caption = """🧠 Meet Koa: Salesforce’s first CRM reasoning model, built on NVIDIA Nemotron.
+
+The next AI advantage isn’t just generating an answer. It’s reasoning with CRM context.
+
+For architects and developers, the opportunity is to evaluate how reasoning models can interpret business context, support more complex decisions, and fit into a trusted enterprise architecture.
+
+The questions worth asking:
+• What business context is the model grounded in?
+• How do you evaluate accuracy and reliability?
+• Where should deterministic rules and human approval remain in control?
+
+AI capability matters—but context, governance, and measurable outcomes matter just as much.
+
+Source: https://investor.salesforce.com/news/news-details/2026/Announcing-Koa-Salesforces-First-CRM-Reasoning-Model-Built-on-NVIDIA-Nemotron/default.aspx
+
+#Salesforce #Koa #AI #SalesforceArchitects #SalesforceDevelopers"""
+          def call(query):
+              req = urllib.request.Request("https://api.buffer.com", data=json.dumps({"query":query}).encode(), headers={"Authorization":"Bearer "+key,"Content-Type":"application/json"}, method="POST")
+              with urllib.request.urlopen(req, timeout=40) as resp:
+                  return json.loads(resp.read())
+          check = call('query { channels(input: { organizationId: "'+org+'" }) { id service externalLink isDisconnected isLocked } }')
+          channels = check.get("data",{}).get("channels",[])
+          valid = [c for c in channels if c.get("id")==channel and c.get("service")=="linkedin" and c.get("externalLink")==page and not c.get("isDisconnected") and not c.get("isLocked")]
+          if check.get("errors") or len(valid)!=1:
+              raise SystemExit("Target channel verification failed; refusing to publish.")
+          mutation = """mutation PublishKisiKoa {
+            createPost(input: {
+              text: %s
+              channelId: "%s"
+              schedulingType: automatic
+              mode: shareNow
+              assets: [{ image: { url: "%s" } }]
+            }) {
+              ... on PostActionSuccess { post { id text status dueAt assets { id mimeType } } }
+              ... on MutationError { message }
+            }
+          }""" % (json.dumps(caption), channel, image_url)
+          result = call(mutation)
+          if result.get("errors"):
+              raise SystemExit("Buffer GraphQL error: "+json.dumps(result["errors"]))
+          action = result.get("data",{}).get("createPost",{})
+          if action.get("message"):
+              raise SystemExit("Buffer rejected post: "+action["message"])
+          post = action.get("post")
+          if not post or not post.get("id"):
+              raise SystemExit("No confirmed Buffer post: "+json.dumps(result))
+          print("BUFFER_POST_CREATED "+post["id"])
+          print("BUFFER_STATUS "+str(post.get("status")))
+          print("IMAGE_URL "+image_url)
+          PY
