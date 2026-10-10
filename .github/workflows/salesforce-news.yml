@@ -1,42 +1,41 @@
-
 name: Salesforce News Automation
-
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 */4 * * *'
-
 jobs:
-  list-buffer-channels:
+  kisi-dry-run:
     runs-on: ubuntu-latest
     steps:
-      - name: List connected Buffer channels
+      - name: Verify Buffer connection and Kisi destination
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: |
           set -euo pipefail
-
           RESPONSE=$(curl --silent --show-error --fail \
             --request POST \
             --url https://api.buffer.com \
             --header "Authorization: Bearer ${BUFFER_API_KEY}" \
             --header "Content-Type: application/json" \
-            --data '{"query":"query { channels(input: { organizationId: \"5b48f24de341a149319d3ecf\" }) { id name displayName service externalLink isDisconnected isLocked } }"}')
-
+            --data '{"query":"query { channels(input: { organizationId: \"5b48f24de341a149319d3ecf\" }) { id displayName service externalLink isDisconnected isLocked } }"}')
           echo "$RESPONSE" | jq -e '
             if .errors then
               error("Buffer API returned an error")
             elif .data.channels then
-              [.data.channels[] | {
-                id,
-                name,
-                displayName,
-                service,
-                externalLink,
-                isDisconnected,
-                isLocked
-              }]
+              [.data.channels[] |
+                select(.externalLink == "https://www.linkedin.com/company/143983556") |
+                select(.service == "linkedin") |
+                select(.isDisconnected == false) |
+                select(.isLocked == false) |
+                {id, displayName, service, externalLink}
+              ] |
+              if length == 1 then
+                .[0]
+              else
+                error("Kisi LinkedIn destination not found or not uniquely available")
+              end
             else
               error("Unexpected Buffer API response")
             end
           '
+          echo "DRY RUN PASSED: Kisi destination verified. No post was published."
