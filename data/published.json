@@ -36,6 +36,20 @@
       "created_at": "2026-10-10T21:15:48+00:00",
       "sentAt": "2026-10-10T21:15:59.919Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7514795893821435904"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-loops",
+      "title_key": "f51790c6f507a691",
+      "source_url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-loops/",
+      "title": "Salesforce Signs Definitive Agreement to Acquire Loops",
+      "article_published": "2026-10-12T12:00:00+00:00",
+      "buffer_post_id": "6acd2058235298ab870de620",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/ff56fdd953efdd1f0c2b00c2ff7b673c286de7a8/posts/20261012-f51790c6f507a691.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-12T18:01:06+00:00",
+      "sentAt": "2026-10-12T18:01:18.125Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7515471672179691522"
     }
   ]
 }
