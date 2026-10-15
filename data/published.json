@@ -64,6 +64,20 @@
       "created_at": "2026-10-13T19:21:29+00:00",
       "sentAt": "2026-10-13T19:21:41.098Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7515854289420947456"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/press-releases/2026/10/15/tottenham-hotspur-becomes-agentic-enterprise-with-agentforce",
+      "title_key": "8c5a3301d53f6111",
+      "source_url": "https://www.salesforce.com/news/press-releases/2026/10/15/tottenham-hotspur-becomes-agentic-enterprise-with-agentforce/",
+      "title": "Tottenham Hotspur Launches Ask Spurs on Agentforce",
+      "article_published": "2026-10-15T07:00:00+00:00",
+      "buffer_post_id": "6ad0d5a883984e92dc1f73f3",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/9f8983c7b3606f89c285f3dc4b8d44ab9d03495c/posts/20261015-8c5a3301d53f6111.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-15T13:31:30+00:00",
+      "sentAt": "2026-10-15T13:31:41.713Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7516490987930656768"
     }
   ]
 }
