@@ -78,6 +78,20 @@
       "created_at": "2026-10-15T13:31:30+00:00",
       "sentAt": "2026-10-15T13:31:41.713Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7516490987930656768"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/press-releases/2026/10/19/1-billion-ai-leadership-investment-spain",
+      "title_key": "ba880efdc510efea",
+      "source_url": "https://www.salesforce.com/news/press-releases/2026/10/19/1-billion-ai-leadership-investment-spain/",
+      "title": "Salesforce Accelerates European AI Leadership with $1 Billion Investment in Spain",
+      "article_published": "2026-10-19T11:00:00+00:00",
+      "buffer_post_id": "6ad63a5e03fb0cde45f79b19",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/b7ca10c2ab9ca15b8570ffbaba65f7445c0fb4fc/posts/20261019-ba880efdc510efea.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-19T15:42:33+00:00",
+      "sentAt": "2026-10-19T15:42:44.825Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7517973519712837632"
     }
   ]
 }
