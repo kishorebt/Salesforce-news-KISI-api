@@ -120,6 +120,20 @@
       "created_at": "2026-10-20T13:38:45+00:00",
       "sentAt": "2026-10-20T13:38:57.463Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7518304752531771393"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/gartner-magic-quadrant-digital-commerce-2026",
+      "title_key": "96402e1c6f03e07e",
+      "source_url": "https://www.salesforce.com/news/stories/gartner-magic-quadrant-digital-commerce-2026/",
+      "title": "Salesforce Named a Leader in 2026 Gartner® Magic Quadrant™ for Digital Commerce for the 11th Consecutive Year",
+      "article_published": "2026-10-22T15:00:00+00:00",
+      "buffer_post_id": "6ada6e26e391db54dafce344",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/eaca8f8e2232c1483883cc8be7263151a2495a7a/posts/20261022-96402e1c6f03e07e.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-22T20:12:32+00:00",
+      "sentAt": "2026-10-22T20:12:44.404Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7519128628786327552"
     }
   ]
 }
