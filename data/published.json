@@ -134,6 +134,20 @@
       "created_at": "2026-10-22T20:12:32+00:00",
       "sentAt": "2026-10-22T20:12:44.404Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7519128628786327552"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/agent-fabric-catch-failures-control-ai-costs",
+      "title_key": "72704e771a80e75b",
+      "source_url": "https://www.salesforce.com/news/stories/agent-fabric-catch-failures-control-ai-costs/",
+      "title": "Salesforce Expands Agent Fabric to Automatically Stop Runaway Costs and AI Agent Failures Before They Impact Customers",
+      "article_published": "2026-10-27T13:00:00+00:00",
+      "buffer_post_id": "6ae0b73c36d2e719f2aed482",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/151cbbcad3c0f9be9ff9763d526e668e3e355a63/posts/20261027-72704e771a80e75b.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-27T14:37:58+00:00",
+      "sentAt": "2026-10-27T14:38:10.507Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7520856372654272513"
     }
   ]
 }
