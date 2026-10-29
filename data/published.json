@@ -176,6 +176,20 @@
       "created_at": "2026-10-29T15:17:01+00:00",
       "sentAt": "2026-10-29T15:17:13.348Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7521590973315858432"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-rune-technologies",
+      "title_key": "05866a251e474afe",
+      "source_url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-rune-technologies/",
+      "title": "Salesforce Signs Definitive Agreement to Acquire Rune Technologies",
+      "article_published": "2026-10-29T20:00:00+00:00",
+      "buffer_post_id": "6ae3b6d960532fc2b0cfd487",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/ca196a839736757f687ee618230306f274f19de6/posts/20261029-05866a251e474afe.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-10-29T21:13:07+00:00",
+      "sentAt": "2026-10-29T21:13:18.873Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7521680588198580224"
     }
   ]
 }
