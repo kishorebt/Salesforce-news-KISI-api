@@ -190,6 +190,20 @@
       "created_at": "2026-10-29T21:13:07+00:00",
       "sentAt": "2026-10-29T21:13:18.873Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7521680588198580224"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-cresta",
+      "title_key": "c2be7062536162a4",
+      "source_url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-cresta/",
+      "title": "Salesforce Signs Definitive Agreement to Acquire Cresta",
+      "article_published": "2026-11-02T21:00:00+00:00",
+      "buffer_post_id": "6ae946006f053cdb90b9abaa",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/3e2f50150f21ff2ebe206ab0850786b0d3bbdc90/posts/20261102-c2be7062536162a4.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-03T02:25:14+00:00",
+      "sentAt": "2026-11-03T02:25:25.922Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7523208686593474561"
     }
   ]
 }
