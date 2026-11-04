@@ -204,6 +204,20 @@
       "created_at": "2026-11-03T02:25:14+00:00",
       "sentAt": "2026-11-03T02:25:25.922Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7523208686593474561"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/slack-stats",
+      "title_key": "0f189cc52c61a42c",
+      "source_url": "https://www.salesforce.com/news/stories/slack-stats/",
+      "title": "Half of Slack Messages Are No Longer From People. Here’s Slack by the Numbers.",
+      "article_published": "2026-11-03T22:30:00+00:00",
+      "buffer_post_id": "6aea7ee7b8d162e0d8f53bdd",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/85ef23cf05eee4ab1143a21aead1846fe36f243f/posts/20261103-0f189cc52c61a42c.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-04T00:40:17+00:00",
+      "sentAt": "2026-11-04T00:40:29.180Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7523544664084320257"
     }
   ]
 }
