@@ -218,6 +218,20 @@
       "created_at": "2026-11-04T00:40:17+00:00",
       "sentAt": "2026-11-04T00:40:29.180Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7523544664084320257"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/agentforce-coworker-surpasses-185k-users",
+      "title_key": "df0a0d856ac6317c",
+      "source_url": "https://www.salesforce.com/news/stories/agentforce-coworker-surpasses-185k-users/",
+      "title": "Salesforce’s Agentforce Coworker Usage Soars 21x in Three Months as Enterprises Delegate Real Work to AI",
+      "article_published": "2026-11-04T14:00:00+00:00",
+      "buffer_post_id": "6aeb8d748aec178794a30742",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/4fc1c20fb0f6384a746459c92e568c6906dc48aa/posts/20261104-df0a0d856ac6317c.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-04T19:54:38+00:00",
+      "sentAt": "2026-11-04T19:54:50.044Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7523835164037279744"
     }
   ]
 }
