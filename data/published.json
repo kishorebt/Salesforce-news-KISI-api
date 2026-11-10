@@ -260,6 +260,20 @@
       "created_at": "2026-11-06T21:35:41+00:00",
       "sentAt": "2026-11-06T21:35:53.651Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7524585373553901568"
+    },
+    {
+      "canonical_url": "https://engineering.salesforce.com/using-ai-to-build-ai-how-agentforce-engineers-scale-automation-without-sacrificing-reliability",
+      "title_key": "ef097a856b613483",
+      "source_url": "https://engineering.salesforce.com/using-ai-to-build-ai-how-agentforce-engineers-scale-automation-without-sacrificing-reliability/",
+      "title": "Using AI to Build AI: How Agentforce Engineers Scale Automation Without Sacrificing Reliability",
+      "article_published": "2026-11-09T19:02:12+00:00",
+      "buffer_post_id": "6af285a505af22d726006938",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/302fe2e41a7d91e5651dc37dfcc421d1fc169c1c/posts/20261109-ef097a856b613483.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-10T02:47:11+00:00",
+      "sentAt": "2026-11-10T02:47:23.659Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7525750928789094400"
     }
   ]
 }
