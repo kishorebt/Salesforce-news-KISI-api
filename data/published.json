@@ -274,6 +274,20 @@
       "created_at": "2026-11-10T02:47:11+00:00",
       "sentAt": "2026-11-10T02:47:23.659Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7525750928789094400"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/press-releases/2026/11/10/missionforce-achieves-awardable-status",
+      "title_key": "bb1468655192dd6a",
+      "source_url": "https://www.salesforce.com/news/press-releases/2026/11/10/missionforce-achieves-awardable-status/",
+      "title": "Missionforce National Security Achieves ‘Awardable’ Status for Department of War Recruiting Capabilities in the CDAO’s Tradewinds Solutions Marketplace",
+      "article_published": "2026-11-10T14:00:00+00:00",
+      "buffer_post_id": "6af391b93cfe2a84dbfc1cdf",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/88e151a57fdb3ec1828b42feffa10f76f1628348/posts/20261110-bb1468655192dd6a.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-10T21:50:59+00:00",
+      "sentAt": "2026-11-10T21:51:11.492Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7526038774603223041"
     }
   ]
 }
