@@ -302,6 +302,20 @@
       "created_at": "2026-11-11T06:40:56+00:00",
       "sentAt": "2026-11-11T06:41:07.818Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7526172138089660416"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/agents-that-improve-ai-models",
+      "title_key": "dcc1d72d34a2558c",
+      "source_url": "https://www.salesforce.com/news/stories/agents-that-improve-ai-models/",
+      "title": "Salesforce Releases R&D Agents That Improve Its AI Models",
+      "article_published": "2026-11-11T16:00:00+00:00",
+      "buffer_post_id": "6af49543c39eba3c0404409a",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/8a107bdd3f2029ecd7df535b5408e26cc8980fbc/posts/20261111-dcc1d72d34a2558c.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-11T16:18:21+00:00",
+      "sentAt": "2026-11-11T16:18:32.754Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7526317449621839873"
     }
   ]
 }
