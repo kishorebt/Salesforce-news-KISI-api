@@ -344,6 +344,20 @@
       "created_at": "2026-11-12T22:16:56+00:00",
       "sentAt": "2026-11-12T22:17:08.081Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7526770079305449472"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/copilotforce-announcement",
+      "title_key": "1b526b3f3717783a",
+      "source_url": "https://www.salesforce.com/news/stories/copilotforce-announcement/",
+      "title": "Salesforce and Microsoft Announce Copilotforce, Bringing Salesforce Customer Context and Sales Workflows to Microsoft Copilot",
+      "article_published": "2026-11-17T18:05:00+00:00",
+      "buffer_post_id": "6afce449ab47737bddb223d1",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/c63f5bb02a890d9a403108426f0b2d478ef4bdd3/posts/20261117-1b526b3f3717783a.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-17T23:33:39+00:00",
+      "sentAt": "2026-11-17T23:33:50.950Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7528601324234448896"
     }
   ]
 }
