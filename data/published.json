@@ -372,6 +372,20 @@
       "created_at": "2026-11-18T07:40:16+00:00",
       "sentAt": "2026-11-18T07:40:27.328Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7528723782933385216"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/stories/cyber-week-ai-sales-2026",
+      "title_key": "255db2e362ec9bd1",
+      "source_url": "https://www.salesforce.com/news/stories/cyber-week-ai-sales-2026/",
+      "title": "Salesforce Data: Record Cyber Week Expected to Deliver $75.8B in AI-Driven Sales",
+      "article_published": "2026-11-19T13:00:00+00:00",
+      "buffer_post_id": "6afef90703dff68ab45ade08",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/c6b4fb3fe665a750d85845b91667586e280c18e3/posts/20261119-255db2e362ec9bd1.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-19T13:26:42+00:00",
+      "sentAt": "2026-11-19T13:26:53.693Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7529173354898059264"
     }
   ]
 }
