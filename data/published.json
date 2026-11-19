@@ -386,6 +386,20 @@
       "created_at": "2026-11-19T13:26:42+00:00",
       "sentAt": "2026-11-19T13:26:53.693Z",
       "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7529173354898059264"
+    },
+    {
+      "canonical_url": "https://salesforce.com/news/press-releases/2026/11/19/salesforce-si-export-consortium",
+      "title_key": "4e2efdaf895496ec",
+      "source_url": "https://www.salesforce.com/news/press-releases/2026/11/19/salesforce-si-export-consortium/",
+      "title": "Salesforce to Lead Consortium Bringing Trusted American SI to Global Markets",
+      "article_published": "2026-11-19T13:00:00+00:00",
+      "buffer_post_id": "6aff80d1b3e65522f83846d0",
+      "image_url": "https://raw.githubusercontent.com/kishorebt/Salesforce-news-KISI-api/5e7d5df2782ee422bb7c5659a61ab7a74951daac/posts/20261119-4e2efdaf895496ec.png",
+      "status": "sent",
+      "attempts": 1,
+      "created_at": "2026-11-19T23:06:03+00:00",
+      "sentAt": "2026-11-19T23:06:15.231Z",
+      "externalLink": "https://www.linkedin.com/feed/update/urn:li:share:7529319155519492096"
     }
   ]
 }
